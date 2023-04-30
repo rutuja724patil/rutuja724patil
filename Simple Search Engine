@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class SimpleSearchEngine {
+    public static void main(String[] args) {
+        
+        ArrayList<String> documents = new ArrayList<>();
+        documents.add("The quick brown fox jumps over the lazy dog.");
+        documents.add("The quick brown dog jumps over the lazy cat.");
+        documents.add("The lazy cat sleeps all day.");
+
+        
+        System.out.print("Enter a search query: ");
+        Scanner scanner = new Scanner(System.in);
+        String query = scanner.nextLine();
+
+       
+        ArrayList<String> matchingDocuments = new ArrayList<>();
+        for (String document : documents) {
+            if (document.toLowerCase().contains(query.toLowerCase())) {
+                matchingDocuments.add(document);
+            }
+        }
+
+        
+        if (matchingDocuments.size() > 0) {
+            System.out.println("The following documents match your search:");
+            for (String matchingDocument : matchingDocuments) {
+                System.out.println(matchingDocument);
+            }
+        } else {
+            System.out.println("No documents match your search.");
+        }
+    }
+}
