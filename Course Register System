@@ -1,0 +1,91 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Course {
+    private String courseCode;
+    private String courseName;
+
+    public Course(String courseCode, String courseName) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+}
+
+class Student {
+    private String studentName;
+    private ArrayList<Course> enrolledCourses;
+
+    public Student(String studentName) {
+        this.studentName = studentName;
+        this.enrolledCourses = new ArrayList<>();
+    }
+
+    public void enrollCourse(Course course) {
+        enrolledCourses.add(course);
+    }
+
+    public void displayEnrolledCourses() {
+        System.out.println("Enrolled courses for " + studentName + ":");
+        for (Course course : enrolledCourses) {
+            System.out.println(course.getCourseCode() + " - " + course.getCourseName());
+        }
+    }
+}
+
+public class CourseRegistrationSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Course> availableCourses = new ArrayList<>();
+
+        // Populate some example courses
+        availableCourses.add(new Course("CS180", "Computer Engineering"));
+        availableCourses.add(new Course("ENTC120", "Electronic and Telecommunication Engineering"));
+        availableCourses.add(new Course("DS60", "Data Science Engineering"));
+
+        System.out.print("Enter student's name: ");
+        String studentName = scanner.nextLine();
+        Student student = new Student(studentName);
+
+        while (true) {
+            System.out.println("\nAvailable Courses:");
+            for (Course course : availableCourses) {
+                System.out.println(course.getCourseCode() + " - " + course.getCourseName());
+            }
+
+            System.out.print("Enter the course code to enroll (or 'q' to quit): ");
+            String courseCode = scanner.nextLine();
+
+            if (courseCode.equalsIgnoreCase("q")) {
+                break;
+            }
+
+            Course selectedCourse = findCourse(availableCourses, courseCode);
+            if (selectedCourse != null) {
+                student.enrollCourse(selectedCourse);
+                System.out.println("Enrolled in " + selectedCourse.getCourseCode() + " - " + selectedCourse.getCourseName());
+            } else {
+                System.out.println("Invalid course code. Please try again.");
+            }
+        }
+
+        student.displayEnrolledCourses();
+        scanner.close();
+    }
+
+    public static Course findCourse(ArrayList<Course> courses, String courseCode) {
+        for (Course course : courses) {
+            if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
+                return course;
+            }
+        }
+        return null;
+    }
+}
