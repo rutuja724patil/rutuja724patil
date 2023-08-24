@@ -1,0 +1,45 @@
+import java.util.Scanner;
+
+public class StudentGradeCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter student's name: ");
+        String studentName = scanner.nextLine();
+        
+        System.out.print("Enter total number of assignments: ");
+        int totalAssignments = scanner.nextInt();
+        
+        double totalScore = 0.0;
+        
+        for (int i = 1; i <= totalAssignments; i++) {
+            System.out.print("Enter score for Assignment " + i + ": ");
+            double assignmentScore = scanner.nextDouble();
+            totalScore += assignmentScore;
+        }
+        
+        double averageScore = totalScore / totalAssignments;
+        
+        char grade = calculateGrade(averageScore);
+        
+        System.out.println("Student: " + studentName);
+        System.out.println("Average Score: " + averageScore);
+        System.out.println("Grade: " + grade);
+        
+        scanner.close();
+    }
+    
+    public static char calculateGrade(double averageScore) {
+        if (averageScore >= 90) {
+            return 'A';
+        } else if (averageScore >= 80) {
+            return 'B';
+        } else if (averageScore >= 70) {
+            return 'C';
+        } else if (averageScore >= 60) {
+            return 'D';
+        } else {
+            return 'F';
+        }
+    }
+}
